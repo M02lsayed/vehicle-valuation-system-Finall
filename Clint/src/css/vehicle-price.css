@@ -1,0 +1,315 @@
+/* Vehicle Price Page */
+.vehicle-price {
+    margin-top: 120px;
+}
+
+.vehicle-container {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    overflow: visible;
+}
+
+/* Form */
+.vehicle-form {
+    flex: 2;
+    overflow: visible;
+}
+
+.vehicle-form h1 {
+    font-family: 'Javanese Text';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 70px;
+    color: #000000;
+    margin-bottom: 25px;
+}
+
+/* Grid Inputs */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    overflow: visible;
+}
+
+.form-grid input,
+.form-grid select {
+    padding: 12px 14px;
+    font-family: 'Gudea';
+    font-size: 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    outline: none;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px);
+    color: #000;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* Submit */
+.submit-btn {
+    margin-top: 25px;
+    width: 220px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Vertical Divider */
+.vertical-divider {
+    width: 4px;
+    height: auto;
+    min-height: 400px;
+    align-self: stretch;
+    background: black;
+    border: none;
+    position: relative;
+}
+
+/* Result */
+.vehicle-result {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 35px;
+}
+
+.vehicle-result h2 {
+    font-family: 'Gudea';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    color: #000000;
+    margin-bottom: 95px;
+}
+
+.price-box {
+    font-family: 'Gudea';
+    font-size: 40px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    color: #000000;
+    padding: 18px 35px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-width: 180px;
+    width: fit-content;
+}
+
+/* Custom Select Dropdown */
+.custom-select {
+    position: relative;
+    width: 100%;
+    font-family: 'Gudea';
+}
+
+.select-head {
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+    border-bottom: 1.5px solid rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.select-head .arrow {
+    width: 10px;
+    height: 10px;
+    border-left: 2px solid #000;
+    border-bottom: 2px solid #000;
+    transform: rotate(-45deg);
+    transition: 0.3s;
+}
+
+.custom-select.active .arrow {
+    transform: rotate(135deg);
+}
+
+.select-options {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    border-radius: 14px;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 20;
+}
+
+.custom-select.active .select-options {
+    max-height: 240px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.option {
+    padding: 14px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.option:last-child {
+    border-bottom: none;
+}
+
+.option:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .vehicle-price {
+        margin-top: 100px;
+    }
+
+    .vehicle-container {
+        gap: 30px;
+    }
+
+    .vehicle-form h1 {
+        font-size: 40px;
+        line-height: 60px;
+        margin-bottom: 20px;
+    }
+
+    .form-grid {
+        gap: 12px;
+    }
+
+    .vehicle-result h2 {
+        font-size: 28px;
+        margin-bottom: 80px;
+    }
+
+    .price-box {
+        font-size: 36px;
+        padding: 16px 30px;
+    }
+
+    .vertical-divider {
+        min-height: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .vehicle-price {
+        margin-top: 120px;
+        padding: 10px;
+    }
+
+    .vehicle-container {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .vehicle-form {
+        width: 100%;
+    }
+
+    .vehicle-form h1 {
+        font-size: 36px;
+        line-height: 50px;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .vehicle-result {
+        padding-top: 10px;
+        width: 100%;
+    }
+
+    .vehicle-result h2 {
+        font-size: 26px;
+        margin-bottom: 30px;
+    }
+
+    .price-box {
+        font-size: 32px;
+        padding: 14px 25px;
+        min-width: 150px;
+    }
+
+    .vertical-divider {
+        display: none;
+    }
+
+    .submit-btn {
+        width: 100%;
+        max-width: 200px;
+        margin: 20px auto 0 auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .vehicle-price {
+        margin-top: 110px;
+        padding: 8px;
+    }
+
+    .vehicle-container {
+        gap: 20px;
+    }
+
+    .vehicle-form h1 {
+        font-size: 30px;
+        line-height: 40px;
+    }
+
+    .form-grid {
+        gap: 12px;
+    }
+
+    .form-grid input,
+    .form-grid select {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+
+    .vehicle-result h2 {
+        font-size: 24px;
+        margin-bottom: 25px;
+    }
+
+    .price-box {
+        font-size: 28px;
+        padding: 12px 20px;
+        min-width: 140px;
+    }
+
+    .submit-btn {
+        width: 100%;
+        max-width: 180px;
+        margin: 15px auto 0 auto;
+    }
+
+    .select-head {
+        padding: 10px 12px;
+    }
+
+    .option {
+        padding: 12px;
+    }
+}

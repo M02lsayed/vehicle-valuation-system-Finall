@@ -1,0 +1,116 @@
+.custom-dropdown {
+    position: relative;
+    width: 100%;
+}
+
+.custom-dropdown__trigger {
+    width: 100%;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    text-align: left;
+    font-family: "Gudea";
+    font-size: 16px;
+    color: #000;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.custom-dropdown__trigger:hover {
+    border-color: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.custom-dropdown.is-open .custom-dropdown__trigger {
+    border-color: rgba(0, 0, 0, 0.45);
+}
+
+.custom-dropdown.is-disabled .custom-dropdown__trigger {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.custom-dropdown__arrow {
+    width: 10px;
+    height: 10px;
+    border-left: 2px solid #000;
+    border-bottom: 2px solid #000;
+    transform: rotate(-45deg);
+    transition: transform 0.25s ease;
+}
+
+.custom-dropdown.is-open .custom-dropdown__arrow {
+    transform: rotate(135deg);
+}
+
+.custom-dropdown__menu {
+    position: fixed;
+    z-index: 9999;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    border-radius: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    animation: dropdownFadeIn 0.2s ease;
+}
+
+.custom-dropdown__menu::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+.custom-dropdown__item,
+.custom-dropdown__empty {
+    width: 100%;
+    padding: 12px 14px;
+    font-family: "Gudea";
+    font-size: 15px;
+    text-align: left;
+}
+
+.custom-dropdown__item {
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    background: transparent;
+    cursor: pointer;
+    color: #111;
+    transition: background-color 0.15s ease;
+}
+
+.custom-dropdown__item:last-child {
+    border-bottom: none;
+}
+
+.custom-dropdown__item:hover {
+    background: rgba(0, 0, 0, 0.07);
+}
+
+.custom-dropdown__item.is-selected {
+    background: rgba(0, 0, 0, 0.11);
+    font-weight: 700;
+}
+
+.custom-dropdown__empty {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
