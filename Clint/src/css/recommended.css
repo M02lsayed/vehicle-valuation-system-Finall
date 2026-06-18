@@ -108,7 +108,7 @@
 
 hr {
     width: 4px;
-    height: 30rem ;
+    height: 30rem;
     align-self: center;
     background: black;
     border: none;
@@ -263,6 +263,26 @@ hr {
     font-weight: 600;
 }
 
+/* ==================== THUMBNAIL COLUMN ==================== */
+
+.thumbnail-column-header {
+    font-weight: 700;
+    color: #000;
+    background: rgba(20, 184, 166, 0.1);
+}
+
+.thumbnail-cell {
+    padding: 4px 8px !important;
+    vertical-align: middle;
+}
+
+.thumbnail-cell .thumbnail-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
 /* Statistics */
 .statistics-box {
     flex: 1;
@@ -392,7 +412,7 @@ hr {
         margin-top: 20px;
     }
 
-        hr {
+    hr {
         height: 12rem;
     }
 }
@@ -413,7 +433,7 @@ hr {
 
     .recommended-container {
         flex-direction: column;
-    align-items: normal;
+        align-items: normal;
     }
 
     .btn {
@@ -429,7 +449,7 @@ hr {
         margin: 20px auto 0 auto;
     }
 
-       hr {
+    hr {
         width: 100%;
         height: 4px;
         margin: 15px 0;
@@ -468,7 +488,11 @@ hr {
     th:nth-child(4),
     td:nth-child(4),
     th:nth-child(5),
-    td:nth-child(5) {
+    td:nth-child(5),
+    th:nth-child(6),
+    td:nth-child(6),
+    th:nth-child(7),
+    td:nth-child(7) {
         display: none;
     }
 

@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import CarThumbnail from "../components/CarThumbnail";
+import CarImageModal from "../components/CarImageModal";
 import { Chart, registerables } from "chart.js";
 import { getRecommendations, getStatistics } from "../services/apiService";
 import { formatPrice, formatPriceShort } from "../utils/formatters";
@@ -28,6 +30,8 @@ function Recommended() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [statsError, setStatsError] = useState("");
+    const [modalOpen, setModalOpen] = useState(false);
+    const [selectedCar, setSelectedCar] = useState(null);
 
     const loadData = async (maxPrice) => {
         if (!maxPrice || maxPrice <= 0) {
@@ -55,6 +59,27 @@ function Recommended() {
 
     const handleRecommendedSubmit = () => {
         loadData(priceRange);
+    };
+
+    const handleThumbnailClick = (car) => {
+        setSelectedCar(car);
+        setModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setModalOpen(false);
+        setSelectedCar(null);
+    };
+
+    // Mock data for testing with local images - will be replaced by API response later
+    const mockCarImages = {
+        images: [
+            "/Photo/نيسان صنى1.jpg",
+            "/Photo/نيسان صنى2.jpg",
+            "/Photo/نيسان صنى3.jpg",
+            "/Photo/نيسان صنى4.jpg",
+        ],
+        thumbnail: "/Photo/نيسان صنى1.jpg",
     };
 
     useEffect(() => {
@@ -310,7 +335,10 @@ function Recommended() {
                                             }
                                             id="slider"
                                         />
-                                        <div className="slider-value" id="slider-Value">
+                                        <div
+                                            className="slider-value"
+                                            id="slider-Value"
+                                        >
                                             {formatPriceShort(priceRange)} EGP
                                         </div>
                                     </div>
@@ -333,6 +361,9 @@ function Recommended() {
                             <table className="recommended-table">
                                 <thead>
                                     <tr>
+                                        <th className="thumbnail-column-header">
+                                            Photos
+                                        </th>
                                         <th>Brand</th>
                                         <th>Model</th>
                                         <th>Year</th>
@@ -347,26 +378,55 @@ function Recommended() {
                                     {recommendations.length === 0 &&
                                     !loading ? (
                                         <tr>
-                                            <td colSpan="7">
+                                            <td colSpan="8">
                                                 No recommendations found.
                                             </td>
                                         </tr>
                                     ) : (
-                                        recommendations.map((car, index) => (
-                                            <tr
-                                                key={`${car.brand}-${car.model}-${index}`}
-                                            >
-                                                <td>{car.brand}</td>
-                                                <td>{car.model}</td>
-                                                <td>{car.year}</td>
-                                                <td>{car.fuelType}</td>
-                                                <td>{car.bodyType}</td>
-                                                <td>{car.engineCapacityCc}</td>
-                                                <td>
-                                                    {formatPrice(car.priceEgp)}
-                                                </td>
-                                            </tr>
-                                        ))
+                                        recommendations.map((car, index) => {
+                                            // Use mock data for first row (testing with local images)
+                                            const carData =
+                                                index === 0
+                                                    ? {
+                                                          ...car,
+                                                          ...mockCarImages,
+                                                      }
+                                                    : car;
+
+                                            return (
+                                                <tr
+                                                    key={`${car.brand}-${car.model}-${index}`}
+                                                >
+                                                    <td className="thumbnail-cell">
+                                                        <CarThumbnail
+                                                            carImage={
+                                                                carData.thumbnail ||
+                                                                car.thumbnail
+                                                            }
+                                                            onImageClick={() =>
+                                                                handleThumbnailClick(
+                                                                    carData,
+                                                                )
+                                                            }
+                                                            carName={`${car.brand} ${car.model}`}
+                                                        />
+                                                    </td>
+                                                    <td>{car.brand}</td>
+                                                    <td>{car.model}</td>
+                                                    <td>{car.year}</td>
+                                                    <td>{car.fuelType}</td>
+                                                    <td>{car.bodyType}</td>
+                                                    <td>
+                                                        {car.engineCapacityCc}
+                                                    </td>
+                                                    <td>
+                                                        {formatPrice(
+                                                            car.priceEgp,
+                                                        )}
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })
                                     )}
                                 </tbody>
                             </table>
@@ -418,6 +478,16 @@ function Recommended() {
                     </div>
                 </div>
             </section>
+
+            {/* Car Image Modal */}
+            {selectedCar && (
+                <CarImageModal
+                    isOpen={modalOpen}
+                    onClose={handleCloseModal}
+                    images={selectedCar.images}
+                    carName={`${selectedCar.brand} ${selectedCar.model} - ${selectedCar.year}`}
+                />
+            )}
 
             <Footer />
         </>

@@ -419,6 +419,26 @@ app.post("/api/valuation/predict", (req, res) => {
     });
 });
 
+// Generate car images - 2 to 6 images per car
+function generateCarImages(brand, model, index) {
+    const imageCount = Math.floor(Math.random() * 5) + 2; // 2-6 images
+    const images = [];
+    const seed = `${brand}-${model}-${index}`;
+
+    // Generate consistent but varied image IDs based on car info
+    const baseId = seed.charCodeAt(0) + index;
+
+    for (let i = 0; i < imageCount; i += 1) {
+        // Using unsplash API for better reliability and car-related images
+        const imageId = (baseId + i) % 100;
+        // Unsplash API with specific search term for cars
+        const imageUrl = `https://source.unsplash.com/400x300/?car,vehicle,${imageId}`;
+        images.push(imageUrl);
+    }
+
+    return images;
+}
+
 function handleRecommendations(req, res) {
     const minPrice = toNumber(req.query.minPrice) ?? 0;
     const maxPrice = toNumber(req.query.maxPrice) ?? Number.MAX_SAFE_INTEGER;
@@ -478,7 +498,13 @@ function handleRecommendations(req, res) {
             return a.distanceFromMaxPrice - b.distanceFromMaxPrice;
         });
 
-    const recommendations = sortedByCloseness.slice(0, limit);
+    const recommendations = sortedByCloseness
+        .slice(0, limit)
+        .map((car, index) => ({
+            ...car,
+            images: generateCarImages(car.brand, car.model, index),
+            thumbnail: `https://source.unsplash.com/80x80/?car,vehicle,${(car.brand.charCodeAt(0) + index) % 50}`,
+        }));
 
     return res.json({
         count: recommendations.length,
